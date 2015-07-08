@@ -1,0 +1,14 @@
+#main-header {
+  padding: 15px;
+
+  .logo {
+    color: $gray-darker;
+    font-size: 36px;
+    font-family: $font-family-century-gothic;
+    letter-spacing: -1px;
+  }
+
+  nav {
+    float: right;
+  }
+}

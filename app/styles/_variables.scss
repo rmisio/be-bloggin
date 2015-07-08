@@ -1,0 +1,43 @@
+// used by sass-mq
+// https://github.com/sass-mq/sass-mq
+$mq-breakpoints: (
+    mobile:  320px,
+    tablet:  740px,
+    desktop: 980px,
+    wide:    1300px,
+
+    // Tweakpoints
+    desktopAd: 810px,
+    mobileLandscape: 480px
+);
+
+// Fonts
+$font-family-palatino: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
+$font-family-century-gothic: 'Century Gothic', sans-serif;
+
+// Colors
+$page-bg-color: #fefefe;
+
+$green-lighter: #B6E2BE;
+$green-light: #85CA91;
+$green: #57ad68;
+$green-dark: #328E42;
+$green-darker: #177127;
+
+$gray-lighter: #D6D5D5;
+$gray-light: #A5A5A5;
+$gray: #797979;
+$gray-dark: #464646;
+$gray-darker: #040404;
+
+$brand-primary: $green;
+// $text-heading-color: $white;
+// $text-color: $gray-dark;
+
+$color-linkedin: #077ebb;
+$color-dribble: #ea4585;
+$color-instagram: #508ec0;
+$color-behance: #498dff;
+$color-google-plus: #dd4248;
+$color-twitter: #25b6ed;
+$color-fb: #6085d4;

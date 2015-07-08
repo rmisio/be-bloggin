@@ -1,0 +1,5 @@
+Using Grunt and css-sprite, any PNGs put in this folder will automatically be
+combined into a ../sprite.png and a corresponding styles/_sprite.scss file
+will be created/updated. As of now, livereload is not auto-magically reloading
+the server when this happens, so we'll have to be in touch with our old-school
+selves and manually reload (or have some fun with the gruntfile and make it work).
