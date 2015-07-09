@@ -1,9 +1,12 @@
 <a href="/" class="logo">BeBloggin</a>
 <nav>
+  <% if (!user) { %>
   <a class="btn btn-login" href="/login">Sign In</a>
+  <% } else { %>
   <button class="btn-avatar">
-    <img src="<%= avatarUrl %>" />
+    <img src="<%= user.profileImageURL %>" />
   </button>
+  <% } %>
 </nav>
 <div class="avatar-popover-content">
   <ul class="list-unstyled">

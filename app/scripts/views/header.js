@@ -27,10 +27,6 @@ define([
             this._attached = true;
             this.initPopover();
           });
-
-          app.ref.onAuth(function (authData) {
-            self.render();
-          });
         },
 
         initPopover: function() {
@@ -42,19 +38,11 @@ define([
           });
         },
 
-        getAvatarUrl: function() {
-          var user = auth.getUser();
-
-          if (user) {
-            return user[user.provider]['profileImageURL'];
-          }
-        },
-
         render: function () {
           var self = this;
 
           this.$el.html(this.template({
-            avatarUrl: this.getAvatarUrl() || ''
+            user: auth.getUser()
           }));
 
           if (this._attached) {

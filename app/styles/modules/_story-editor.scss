@@ -1,0 +1,60 @@
+#editor-container {
+  position: relative;
+
+  .Medium-placeholder {
+    left: 49px;
+    right: 0;
+    top: 7px;
+  }
+
+  .user-tag-line {
+    position: absolute;
+
+    span {
+      color: $brand-primary;
+      margin-left: 5px;
+      font-size: 14px;
+      opacity: 0;
+    }
+  }
+
+  #editor {
+    padding-top: 60px;
+    min-height: 100px;
+    // @include transition(all 100ms ease-in);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .button-set {
+    max-height: 0;
+    opacity: 0;
+    // @include transition(height 100ms ease-in, opacity 100ms ease-in 100ms);
+  }
+
+  .editor-focus {
+    .user-tag-line span {
+      opacity: 1;
+      max-height: 0;
+    }
+
+    #editor {
+      min-height: 200px;
+    }
+
+    .button-set {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      max-height: 150px;
+      opacity: 1;
+    }
+  }
+}
+
+.user-logged-in {
+  #editor-container {
+    border-bottom: 1px solid $gray-lighter;
+  }
+}

@@ -4,13 +4,13 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'medium',
     'templates',
     'app',
     'auth',
     'views/BaseView',
-    'views/header'
-], function ($, _, Backbone, Medium, JST, app, auth, BaseView, HeaderView) {
+    'views/Header',
+    'views/StoryEditor'
+], function ($, _, Backbone, JST, app, auth, BaseView, HeaderView, StoryEditorView) {
     'use strict';
 
     var AppViewView = BaseView.extend({
@@ -24,14 +24,21 @@ define([
         },
 
         initialize: function () {
-          var $html = $('html');
+          var $html = $('html')
+            , self = this;
 
           app.ref.onAuth(function (authData) {
+            if (self.headerView) {
+              self.headerView.render();
+            }
+
+            if (self.storyEditorView) {
+              self.storyEditorView.render();
+            }
+
             if (authData) {
               $html.removeClass('user-logged-out')
                 .addClass('user-logged-in');
-
-
             } else {
               $html.removeClass('user-logged-in')
                 .addClass('user-logged-out');
@@ -42,25 +49,27 @@ define([
         },
 
         onLogout: function (e) {
+          console.log('logout request');
           app.ref.unauth();
 
           return false;
         },
 
         render: function() {
-          var headerView = new HeaderView();
+          this.headerView = new HeaderView();
+          this.storyEditorView = new StoryEditorView();
 
-          this.registerChild(headerView);
+          this.registerChild(this.headerView);
+          this.registerChild(this.storyEditorView);
           this.$el.html(this.template());
 
-          this.$('#main-header').empty()
-            .append(
-              headerView.render().$el
-            );
+          this.$('#main-header').append(
+            this.headerView.render().el
+          );
 
-          new Medium({
-            element: this.$('#editor')[0]
-          });
+          this.$('#editor-container').append(
+            this.storyEditorView.render().el
+          );
 
           return this;
         }

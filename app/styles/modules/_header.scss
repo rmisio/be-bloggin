@@ -66,19 +66,3 @@
     display: none;
   }
 }
-
-.user-logged-out {
-  #main-header {
-    .btn-avatar {
-      display: none;
-    }
-  }
-}
-
-.user-logged-in {
-  #main-header {
-    .btn-login {
-      display: none;
-    }
-  }
-}

@@ -1,0 +1,10 @@
+<% if (user) { %>
+<div class="user-tag-line">
+  <img class="avatar" src="<%= user.profileImageURL %>" />
+  <span><%= user.displayName %></span>
+</div>
+<div id="editor"></div>
+<div class="button-set">
+  <button class="btn-publish btn-highlight">Publish</button>
+</div>
+<% } %>

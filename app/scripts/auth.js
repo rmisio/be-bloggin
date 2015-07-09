@@ -6,7 +6,7 @@ define([
 
     var ref
       , init
-      , user = null
+      , authData = null
       , signInOauth
       , signInFb
       , signInGoogle
@@ -15,12 +15,13 @@ define([
     init = function() {
       app.ref = new Firebase('https://bebloggin.firebaseio.com');
 
-      app.ref.onAuth(function (authData) {
-        if (authData) {
+      app.ref.onAuth(function (data) {
+        if (data) {
           console.log('login son');
-          user = authData;
+          window.son = data;
+          authData = data;
         } else {
-          user = null;
+          authData = null;
         }
       });
     };
@@ -43,8 +44,17 @@ define([
       return signInOauth('google');
     };
 
-    getUser = function() {
-      return user;
+    getUser = function(options) {
+      options = options || {};
+      options.includeAuthWrapper =
+        typeof options.includeAuthWrapper === 'undefined' ?
+          false : true;
+
+      if (!options.includeAuthWrapper && authData) {
+        return authData[authData.provider];
+      } else {
+        return authData;
+      }
     };
 
     return {

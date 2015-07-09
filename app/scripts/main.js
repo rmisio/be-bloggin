@@ -40,7 +40,7 @@ require([
   'app',
   'auth',
   'routes/app',
-  'views/appView'
+  'views/AppView'
 ], function ($, Backbone, Firebase, bootstrap, app, auth, AppRouter, AppView) {
   // TODO: move into appView
   // prevent relative link clicks from requesting a new page
