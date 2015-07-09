@@ -14,16 +14,18 @@ body {
 a {
   color: $green;
 
-  &:hover {
+  &:hover, &:focus {
     text-decoration: none;
     color: $green-dark;
   }
 }
 
-.btn {
-  border-radius: 5px;
+button, .btn {
+  border-radius: 8px;
   border: 1px solid $gray-lighter;
   color: $gray;
+  background-color: transparent;
+  padding: 8px 10px;
   @include transition(all 300ms linear);
 
   &:hover {
@@ -34,6 +36,38 @@ a {
 
 #main {
   padding: 0 15px;
-  max-width: 800px;
-  margin: 0 auto;
+
+  .main-content {
+    max-width: 800px;
+    margin: 0 auto;
+
+    #editor {
+      background-color: pink;
+      min-height: 200px;
+    }
+  }
+}
+
+.user-logged-out {
+  #main .main-content {
+    .welcome-intro {
+      display: block;
+    }
+
+    #editor {
+      display: none;
+    }
+  }
+}
+
+.user-logged-in {
+  #main .main-content {
+    .welcome-intro {
+      display: none;
+    }
+
+    #editor {
+      display: block;
+    }
+  }
 }

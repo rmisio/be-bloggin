@@ -9,7 +9,8 @@
     "modernizr": "~2.7.1",
     "sass-mq": "~3.2.2",
     "backbonefire": "~0.5.1",
-    "backbone.validation": "~0.7.1"
+    "backbone.validation": "~0.7.1",
+    "medium.js": "~1.0.1"
   },
   "devDependencies": {
     "chai": "~3.0.0",

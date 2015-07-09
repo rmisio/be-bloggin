@@ -1,7 +1,15 @@
-<header id="main-header">
-  <a href="/" class="logo"><span class="glyphicon glyphicon-pencil"></span>BeBloggin</a>
-  <nav>
-    <a class="btn btn-login" href="/login">Login</a>
-  </nav>
-</header>
+<a href="/" class="logo">BeBloggin</a>
+<nav>
+  <a class="btn btn-login" href="/login">Sign In</a>
+  <button class="btn-avatar">
+    <img src="<%= avatarUrl %>" />
+  </button>
+</nav>
+<div class="avatar-popover-content">
+  <ul class="list-unstyled">
+    <li>
+      <a href="/logout">Sign Out</a>
+    </li>
+  </ul>
+</div>
 
