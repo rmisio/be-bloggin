@@ -21,10 +21,19 @@ define([
 
         events: {
           'focus #editor': 'onEditorFocus',
-          'blur #editor': 'onEditorBlur'
+          'blur #editor': 'onEditorBlur',
+          'click .btn-publish': 'onPublish'
         },
 
         initialize: function() {
+        },
+
+        onPublish: function() {
+          this.trigger('publish', {
+            data: {
+              body: this.$editor.html()
+            }
+          });
         },
 
         isEditorEmpty: function() {

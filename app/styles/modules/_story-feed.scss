@@ -1,0 +1,32 @@
+#story-feed-container {
+  position: relative;
+  padding-top: 30px;
+
+  .new-stories-indicator {
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+
+    button {
+      background-color: $page-bg-color;
+      width: 200px;
+    }
+  }
+
+  .spinner-loader {
+    display: none;
+  }
+
+  .initial-syncing {
+    .spinner-loader {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  article {
+  }
+}

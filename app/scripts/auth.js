@@ -13,12 +13,11 @@ define([
       , getUser;
 
     init = function() {
-      app.ref = new Firebase('https://bebloggin.firebaseio.com');
+      app.fbBaseUrl = 'https://bebloggin.firebaseio.com';
+      app.ref = new Firebase(app.fbBaseUrl);
 
       app.ref.onAuth(function (data) {
         if (data) {
-          console.log('login son');
-          window.son = data;
           authData = data;
         } else {
           authData = null;
@@ -27,11 +26,12 @@ define([
     };
 
     signInOauth = function (type) {
+      // TODO: return promise so callers can handle errors
       app.ref.authWithOAuthPopup(type, function(error, authData) {
         if (error) {
           console.log('Login Failed!', error);
         } else {
-          console.log('Authenticated successfully with payload:', authData);
+          // console.log('Authenticated successfully with payload:', authData);
         }
       });
     };

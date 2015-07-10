@@ -1,0 +1,11 @@
+<div class="new-stories-indicator">
+  <button>12 new stories</button>
+</div>
+<div class="spinner-loader">
+  Loading…
+</div>
+<% for (var i=0; i < stories.length; i++) { %>
+<article>
+  <%= stories.at(i).get('body') %>
+</article>
+<% } %>

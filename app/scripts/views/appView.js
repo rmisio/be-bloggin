@@ -9,8 +9,10 @@ define([
     'auth',
     'views/BaseView',
     'views/Header',
-    'views/StoryEditor'
-], function ($, _, Backbone, JST, app, auth, BaseView, HeaderView, StoryEditorView) {
+    'views/StoryEditor',
+    'views/StoryFeedView',
+    'collections/Stories'
+], function ($, _, Backbone, JST, app, auth, BaseView, HeaderView, StoryEditorView, StoryFeedView, StoriesCollection) {
     'use strict';
 
     var AppViewView = BaseView.extend({
@@ -56,8 +58,21 @@ define([
         },
 
         render: function() {
+          var self = this;
+
           this.headerView = new HeaderView();
-          this.storyEditorView = new StoryEditorView();
+          this.storiesCollection = new StoriesCollection();
+
+          this.storyEditorView =new StoryEditorView();
+          this.storyEditorView.on('publish', function (e) {
+            self.storiesCollection.create({
+              body: e.data.body
+            })
+          });
+
+          this.storyFeedView = new StoryFeedView({
+            collection: this.storiesCollection
+          });
 
           this.registerChild(this.headerView);
           this.registerChild(this.storyEditorView);
@@ -69,6 +84,10 @@ define([
 
           this.$('#editor-container').append(
             this.storyEditorView.render().el
+          );
+
+          this.$('#story-feed-container').append(
+            this.storyFeedView.el
           );
 
           return this;

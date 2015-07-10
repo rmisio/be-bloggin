@@ -20,6 +20,11 @@ require.config({
       deps: [
         'jquery'
       ]
+    },
+    backbonefire: {
+      deps: [
+        'backbone', 'firebase'
+      ]
     }
   },
   paths: {
@@ -28,7 +33,9 @@ require.config({
     underscore: '../bower_components/underscore/underscore',
     bootstrap: '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap',
     firebase: '../bower_components/firebase/firebase',
-    'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor'
+    backbonefire: '../bower_components/backbonefire/dist/backbonefire',
+    'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor',
+    'velocity': '../bower_components/velocity/velocity'
   }
 });
 
@@ -36,12 +43,14 @@ require([
   'jquery',
   'backbone',
   'firebase',
+  'backbonefire',
   'bootstrap',
+  'velocity',
   'app',
   'auth',
   'routes/app',
   'views/AppView'
-], function ($, Backbone, Firebase, bootstrap, app, auth, AppRouter, AppView) {
+], function ($, Backbone, Firebase, backbonefire, bootstrap, velocity, app, auth, AppRouter, AppView) {
   // TODO: move into appView
   // prevent relative link clicks from requesting a new page
   // i.e. let our router handle them
