@@ -4,10 +4,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'medium',
+    'medium-editor',
     'auth',
     'templates'
-], function ($, _, Backbone, Medium, auth, JST) {
+], function ($, _, Backbone, MediumEditor, auth, JST) {
     'use strict';
 
     var StoryEditorView = Backbone.View.extend({
@@ -28,17 +28,20 @@ define([
         },
 
         isEditorEmpty: function() {
-          var val = this.editor.value();
+          var val = this.$editor.html();
 
-          return !(val.length && val !== '<p>&nbsp;</p>' && val !== '<p><br></p>');
+          return !(val.length && val !== '<p><br></p>');
         },
 
         onEditorFocus: function() {
-          this.$el.addClass('editor-focus');
+          this.$el.addClass('placeholder-off');
+          console.log(this.$editor.html());
         },
 
         onEditorBlur: function() {
-          this.$el.removeClass('editor-focus');
+          if (this.isEditorEmpty()) {
+            this.$el.removeClass('placeholder-off');
+          }
         },
 
         render: function () {
@@ -48,12 +51,16 @@ define([
             user: user
           }));
 
+          this.$editor = this.$('#editor');
+
           if (user) {
-            this.editor = new Medium({
-              element: this.$('#editor')[0],
-              placeholder: 'Get your write on here...',
-              autoHR: false,
-              mode: Medium.richMode
+            this.editor = new MediumEditor(this.$editor[0], {
+              placeholder: {
+                text: 'Get your write on...'
+              },
+              toolbar: {
+                buttons: ['bold', 'italic', 'underline', 'anchor', 'h1', 'h2', 'h3', 'quote']
+              }
             });
           }
 

@@ -305,8 +305,8 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,txt}',
             'images/{,*/}*.{webp,gif}',
-            'styles/fonts/{,*/}*.*'
-            // 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'
+            'styles/fonts/{,*/}*.*',
+            'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
@@ -346,8 +346,8 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
             '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-            '/styles/fonts/{,*/}*.*'
-            // 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'
+            '/styles/fonts/{,*/}*.*',
+            'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'
           ]
         }
       }

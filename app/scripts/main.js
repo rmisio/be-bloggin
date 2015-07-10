@@ -28,7 +28,7 @@ require.config({
     underscore: '../bower_components/underscore/underscore',
     bootstrap: '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap',
     firebase: '../bower_components/firebase/firebase',
-    medium: '../bower_components/medium.js/medium'
+    'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor'
   }
 });
 

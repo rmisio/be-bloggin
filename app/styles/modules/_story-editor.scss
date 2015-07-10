@@ -1,12 +1,6 @@
 #editor-container {
   position: relative;
 
-  .Medium-placeholder {
-    left: 49px;
-    right: 0;
-    top: 7px;
-  }
-
   .user-tag-line {
     position: absolute;
 
@@ -26,6 +20,12 @@
     &:focus {
       outline: none;
     }
+
+    &::after {
+      margin-left: 50px;
+      margin-top: 7px;
+      cursor: text;
+    }
   }
 
   .button-set {
@@ -34,7 +34,7 @@
     // @include transition(height 100ms ease-in, opacity 100ms ease-in 100ms);
   }
 
-  .editor-focus {
+  .placeholder-off {
     .user-tag-line span {
       opacity: 1;
       max-height: 0;
@@ -42,6 +42,10 @@
 
     #editor {
       min-height: 200px;
+
+      &:after {
+        opacity: 0;
+      }
     }
 
     .button-set {
