@@ -61,11 +61,15 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<!-- <div class="spinner-loader">\n  Loading…\n</div> -->\n';
- for (var i=0; i < stories.length; i++) { ;
-__p += '\n<article>\n  ' +
+
+ for (var i=0; i < stories.length; i++) {;
+__p += '\n  <article>\n    <div class="user-tag-line">\n      <img class="avatar" src="' +
+((__t = ( stories.at(i).get('user').profileImageURL )) == null ? '' : __t) +
+'" />\n      <span>' +
+((__t = ( stories.at(i).get('user').displayName )) == null ? '' : __t) +
+'</span>\n    </div>\n    ' +
 ((__t = ( stories.at(i).get('body') )) == null ? '' : __t) +
-'\n</article>\n';
+'\n  </article>\n</a>\n';
  } ;
 __p += '\n';
 

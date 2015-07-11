@@ -45,13 +45,9 @@ define([
 
         onEditorFocus: function() {
           this.placeholderOff();
-          console.log(this.$editor.html());
         },
 
         onEditorBlur: function() {
-          if (this.isEditorEmpty()) {
-            this.placeholderOn();
-          }
         },
 
         placeholderOn: function() {

@@ -71,9 +71,23 @@ define([
 
           this.storyEditorView =new StoryEditorView();
           this.listenTo(this.storyEditorView, 'publish', function (e) {
+            console.log('you tryin to publiush with this?');
+            console.log("[" + e.data.body + "]");
+
+            var user = auth.getUser();
+            console.log('chico');
+            window.chico = user;
+
             self.storiesCollection.create({
-              body: e.data.body
+              body: e.data.body,
+              user: {
+                displayName: user.displayName,
+                profileImageURL: user.profileImageURL
+              }
             }, {
+              invalid: function(error) {
+                console.log('gotta error folks: ' + error);
+              },
               success: function() {
                 self.storyEditorView.placeholderOn();
               },

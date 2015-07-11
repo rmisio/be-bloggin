@@ -58,6 +58,14 @@ blockquote {
   border-radius: 50%;
 }
 
+.user-tag-line {
+  span {
+    color: $brand-primary;
+    margin-left: 5px;
+    font-size: 14px;
+  }
+}
+
 #main {
   padding: 0 15px;
 

@@ -1,8 +1,10 @@
-<!-- <div class="spinner-loader">
-  Loading…
-</div> -->
-<% for (var i=0; i < stories.length; i++) { %>
-<article>
-  <%= stories.at(i).get('body') %>
-</article>
+<% for (var i=0; i < stories.length; i++) {%>
+  <article>
+    <div class="user-tag-line">
+      <img class="avatar" src="<%= stories.at(i).get('user').profileImageURL %>" />
+      <span><%= stories.at(i).get('user').displayName %></span>
+    </div>
+    <%= stories.at(i).get('body') %>
+  </article>
+</a>
 <% } %>
