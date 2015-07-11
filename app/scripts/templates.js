@@ -18,8 +18,14 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 __p += '<a href="/" class="logo">BeBloggin</a>\n<nav>\n  ';
+ if (newStories) { ;
+__p += '\n  <button class="btn-new-stories">' +
+((__t = ( newStories )) == null ? '' : __t) +
+'</button>\n  ';
+ } ;
+__p += '\n  ';
  if (!user) { ;
-__p += '\n  <a class="btn btn-login" href="/login">Sign In</a>\n  ';
+__p += '\n  <!-- <a class="btn btn-login" href="/login">Sign In</a> -->\n  ';
  } else { ;
 __p += '\n  <button class="btn-avatar">\n    <img src="' +
 ((__t = ( user.profileImageURL )) == null ? '' : __t) +
@@ -55,7 +61,7 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div class="new-stories-indicator">\n  <button>12 new stories</button>\n</div>\n<div class="spinner-loader">\n  Loading…\n</div>\n';
+__p += '<!-- <div class="spinner-loader">\n  Loading…\n</div> -->\n';
  for (var i=0; i < stories.length; i++) { ;
 __p += '\n<article>\n  ' +
 ((__t = ( stories.at(i).get('body') )) == null ? '' : __t) +

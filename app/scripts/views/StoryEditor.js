@@ -26,6 +26,7 @@ define([
         },
 
         initialize: function() {
+          this.$body = $('body');
         },
 
         onPublish: function() {
@@ -43,14 +44,24 @@ define([
         },
 
         onEditorFocus: function() {
-          this.$el.addClass('placeholder-off');
+          this.placeholderOff();
           console.log(this.$editor.html());
         },
 
         onEditorBlur: function() {
           if (this.isEditorEmpty()) {
-            this.$el.removeClass('placeholder-off');
+            this.placeholderOn();
           }
+        },
+
+        placeholderOn: function() {
+          this.$editor.empty();
+          this.$editor.addClass('medium-editor-placeholder');
+          this.$el.removeClass('placeholder-off');
+        },
+
+        placeholderOff: function() {
+          this.$el.addClass('placeholder-off');
         },
 
         render: function () {

@@ -18,7 +18,9 @@ define([
 
         className: '',
 
-        events: {},
+        events: {
+          'click .btn-new-stories': 'onBtnNewStoriesClick'
+        },
 
         initialize: function () {
           var self = this;
@@ -26,6 +28,12 @@ define([
           this.on('attach', function() {
             this._attached = true;
             this.initPopover();
+          });
+
+          this.newStories = 0;
+          this.listenTo(app.eventEmitter, 'new-story', function(newStories) {
+            self.newStories = newStories;
+            self.render();
           });
         },
 
@@ -38,11 +46,18 @@ define([
           });
         },
 
-        render: function () {
+        onBtnNewStoriesClick: function() {
+          app.eventEmitter.trigger('header-btn-new-stories-click');
+          this.newStories = 0;
+          this.render();
+        },
+
+        render: function() {
           var self = this;
 
           this.$el.html(this.template({
-            user: auth.getUser()
+            user: auth.getUser(),
+            newStories: this.newStories
           }));
 
           if (this._attached) {

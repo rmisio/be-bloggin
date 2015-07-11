@@ -48,10 +48,15 @@ define([
           });
 
           $html.on('click', '[href="/logout"]', this.onLogout);
+
+          this.listenTo(app.eventEmitter, 'header-btn-new-stories-click', function() {
+            if (self.storyFeedView) {
+              self.storyFeedView.render();
+            }
+          });
         },
 
         onLogout: function (e) {
-          console.log('logout request');
           app.ref.unauth();
 
           return false;
@@ -60,14 +65,22 @@ define([
         render: function() {
           var self = this;
 
+          // Todo: remove() child views if they exist.
           this.headerView = new HeaderView();
           this.storiesCollection = new StoriesCollection();
 
           this.storyEditorView =new StoryEditorView();
-          this.storyEditorView.on('publish', function (e) {
+          this.listenTo(this.storyEditorView, 'publish', function (e) {
             self.storiesCollection.create({
               body: e.data.body
-            })
+            }, {
+              success: function() {
+                self.storyEditorView.placeholderOn();
+              },
+              error: function() {
+                alert('So sorry. There was an error. Please try again.');
+              }
+            });
           });
 
           this.storyFeedView = new StoryFeedView({
