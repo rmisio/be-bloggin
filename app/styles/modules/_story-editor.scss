@@ -12,7 +12,6 @@
   #editor {
     padding-top: 60px;
     min-height: 100px;
-    // @include transition(all 100ms ease-in);
 
     &:focus {
       outline: none;
@@ -28,7 +27,6 @@
   .button-set {
     max-height: 0;
     opacity: 0;
-    // @include transition(height 100ms ease-in, opacity 100ms ease-in 100ms);
   }
 
   .placeholder-off {

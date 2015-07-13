@@ -31,10 +31,6 @@ define([
           });
 
           this.newStories = 0;
-          this.listenTo(app.eventEmitter, 'new-story', function(newStories) {
-            self.newStories = newStories;
-            self.render();
-          });
         },
 
         initPopover: function() {
@@ -44,6 +40,13 @@ define([
             trigger: 'focus',
             html: true
           });
+        },
+
+        setNewStoryCount: function (count) {
+          if ($.isNumeric(count)) {
+            this.newStories = count;
+            this.render();
+          }
         },
 
         onBtnNewStoriesClick: function() {

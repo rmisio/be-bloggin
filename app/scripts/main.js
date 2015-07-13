@@ -35,7 +35,8 @@ require.config({
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor',
-    'velocity': '../bower_components/velocity/velocity'
+    'velocity': '../bower_components/velocity/velocity',
+    'moment': '../bower_components/moment/moment'
   }
 });
 

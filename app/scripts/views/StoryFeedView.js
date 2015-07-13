@@ -4,11 +4,12 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'moment',
   'app',
   'templates',
   'views/BaseView',
   'collections/Stories'
-], function ($, _, Backbone, app, JST, BaseView, StoriesCollection) {
+], function ($, _, Backbone, moment, app, JST, BaseView, StoriesCollection) {
   'use strict';
 
   var AppViewView = BaseView.extend({
@@ -28,11 +29,6 @@ define([
 
         this.listenToOnce(this.collection, 'sync', function() {
           self.render();
-
-          self.listenTo(self.collection, 'add', function() {
-            this.newStories += 1;
-            app.eventEmitter.trigger('new-story', this.newStories);
-          });
         });
 
         // this.listenTo(this.collection, 'all', function(type) {
@@ -41,12 +37,17 @@ define([
         // });
       },
 
+      getNewStoryCount: function() {
+        return this.collection.length - this.storiesAtRender;
+      },
+
       render: function() {
         this.$el.html(this.template({
-          stories: this.collection
+          stories: this.collection,
+          moment: moment
         }));
 
-        this.newStories = 0;
+        this.storiesAtRender = this.collection.length;
 
         return this;
       }

@@ -67,29 +67,29 @@ define([
 
           // Todo: remove() child views if they exist.
           this.headerView = new HeaderView();
-          this.storiesCollection = new StoriesCollection();
 
-          this.storyEditorView =new StoryEditorView();
+          this.storyEditorView = new StoryEditorView();
           this.listenTo(this.storyEditorView, 'publish', function (e) {
-            console.log('you tryin to publiush with this?');
-            console.log("[" + e.data.body + "]");
+            var user = auth.getUser()
+              , data;
 
-            var user = auth.getUser();
-            console.log('chico');
-            window.chico = user;
 
-            self.storiesCollection.create({
+            data = {
               body: e.data.body,
               user: {
                 displayName: user.displayName,
                 profileImageURL: user.profileImageURL
               }
-            }, {
+            };
+
+            self.lastPublished = data;
+            self.storiesCollection.create(data, {
               invalid: function(error) {
-                console.log('gotta error folks: ' + error);
+                alert(error);
               },
               success: function() {
                 self.storyEditorView.placeholderOn();
+                self.storyFeedView.render();
               },
               error: function() {
                 alert('So sorry. There was an error. Please try again.');
@@ -97,9 +97,29 @@ define([
             });
           });
 
+          this.storiesCollection = new StoriesCollection();
+
           this.storyFeedView = new StoryFeedView({
             collection: this.storiesCollection
           });
+
+          this.listenToOnce(this.storiesCollection, 'sync', function() {
+            self.storyFeedView.render();
+
+            self.listenTo(self.storiesCollection, 'add', function(model, collection, objects) {
+              var count = 0;
+
+              // If the added one is not the one the user just published,
+              // we'll increment the new story count in the header. Otherwise,
+              // we'll reset the count.
+              if (!self.lastPublished || self.lastPublished.id !== model.id) {
+                count = self.storyFeedView.getNewStoryCount();
+              }
+
+              self.headerView.setNewStoryCount(count);
+            });
+          });
+
 
           this.registerChild(this.headerView);
           this.registerChild(this.storyEditorView);

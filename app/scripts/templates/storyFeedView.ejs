@@ -1,10 +1,21 @@
-<% for (var i=0; i < stories.length; i++) {%>
-  <article>
-    <div class="user-tag-line">
-      <img class="avatar" src="<%= stories.at(i).get('user').profileImageURL %>" />
-      <span><%= stories.at(i).get('user').displayName %></span>
-    </div>
-    <%= stories.at(i).get('body') %>
-  </article>
+<% for (var i=0; i < stories.length; i++) {
+      var story = stories.at(i);
+%>
+  <div class="story-preview">
+    <article>
+      <div class="user-tag-line">
+        <img class="avatar" src="<%= stories.at(i).get('user').profileImageURL %>" />
+        <div>
+          <div class="display-name"><%= story.get('user').displayName %></div>
+          <div class="time-ago"><%= moment(story.get('createdAt')).fromNow() %></div>
+        </div>
+      </div>
+      <h2><%= story.get('title') %></h2>
+      <p class="preview">
+        <%= story.get('preview') %>
+      </p>
+    </article>
+    <a href="#" class="read-more">Read more &#65515;</a>
+  </div>
 </a>
 <% } %>

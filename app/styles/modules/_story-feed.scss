@@ -24,6 +24,45 @@
     content: '';
   }
 
-  article {
+  .story-preview {
+    padding: 30px 0;
+    border-bottom: 1px solid $gray-lighter;
+
+    &:first-of-type {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .user-tag-line {
+      .avatar {
+        float: left;
+      }
+
+      & > div {
+        position: relative;
+        top: 4px;
+        line-height: 18px;
+
+        .display-name {
+          margin-top: 3px;
+        }
+
+        .time-ago {
+          font-size: 14px;
+          color: $gray-light;
+        }
+      }
+    }
+
+    article {
+      margin-bottom: 15px;
+    }
+
+    .read-more {
+      font-size: 18px;
+    }
   }
 }

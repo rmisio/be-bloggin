@@ -59,9 +59,12 @@ blockquote {
 }
 
 .user-tag-line {
-  span {
+  .avatar {
+    margin-right: 5px;
+  }
+
+  .display-name {
     color: $brand-primary;
-    margin-left: 5px;
     font-size: 14px;
   }
 }

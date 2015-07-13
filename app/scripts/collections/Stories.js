@@ -30,21 +30,20 @@ define([
       this.create = function() {
         var args = origCreate.apply(this, arguments);
 
-        console.log('---> ' + JSON.stringify(args) + ' <--');
-
-        // if validations are successful, origCreate with
-        // return nothing
         if (!args[1].validationError) {
-          newCreate.apply(this, args);
+          return newCreate.apply(this, args);
         }
       }
     },
 
     create: function (model, options) {
       var title = ''
-        , $body;
-
-      console.log('Boom [' + $(model.body).text() + ']');
+        , preview = ''
+        , fields
+        , $body
+        , $wrappedBody
+        , $title
+        , $preview;
 
       options = options || {};
       options.invalid = typeof options.invalid === 'function' ?
@@ -57,14 +56,37 @@ define([
         options.validationError = 'The story must contain some text.'
         options.invalid.call(this, options.validationError);
       } else {
-        $('<div/>').append($body)
+        $wrappedBody = $('<div/>').append($body);
+
+        // TODO: should probably leave truncating to the views.
+
+        // to find title, get the text of the first tag
+        $wrappedBody
           .find('*')
           .each(function (i, el) {
-            if ((title = $(el).text()).length) {
-              model.title = title.substring(0,300);
+            var $el = $(el);
+
+            if ((title = $el.text()).length) {
+              $title = $el;
+
+              if (title.length > 100) {
+                title = title.substring(0,100) + '...';
+              }
+
+              model.title = title;
               return false;
             }
         });
+
+        // to create the preview, find the first p element
+        $preview = $wrappedBody.find('p:first-of-type');
+        if ($preview.length && $title[0] !== $preview[0] && (preview = $preview.text()).length) {
+          model.preview = preview.length > 150 ?
+            preview.substring(0, 150) + '...' :
+              preview;
+        } else {
+          model.preview = '';
+        }
       }
 
       return arguments;

@@ -46,7 +46,7 @@ with (obj) {
  if (user) { ;
 __p += '\n<div class="user-tag-line">\n  <img class="avatar" src="' +
 ((__t = ( user.profileImageURL )) == null ? '' : __t) +
-'" />\n  <span>' +
+'" />\n  <span class="display-name">' +
 ((__t = ( user.displayName )) == null ? '' : __t) +
 '</span>\n</div>\n<div id="editor"></div>\n<div class="button-set">\n  <button class="btn-publish btn-highlight">Publish</button>\n</div>\n';
  } ;
@@ -62,14 +62,20 @@ var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
- for (var i=0; i < stories.length; i++) {;
-__p += '\n  <article>\n    <div class="user-tag-line">\n      <img class="avatar" src="' +
+ for (var i=0; i < stories.length; i++) {
+      var story = stories.at(i);
+;
+__p += '\n  <div class="story-preview">\n    <article>\n      <div class="user-tag-line">\n        <img class="avatar" src="' +
 ((__t = ( stories.at(i).get('user').profileImageURL )) == null ? '' : __t) +
-'" />\n      <span>' +
-((__t = ( stories.at(i).get('user').displayName )) == null ? '' : __t) +
-'</span>\n    </div>\n    ' +
-((__t = ( stories.at(i).get('body') )) == null ? '' : __t) +
-'\n  </article>\n</a>\n';
+'" />\n        <div>\n          <div class="display-name">' +
+((__t = ( story.get('user').displayName )) == null ? '' : __t) +
+'</div>\n          <div class="time-ago">' +
+((__t = ( moment(story.get('createdAt')).fromNow() )) == null ? '' : __t) +
+'</div>\n        </div>\n      </div>\n      <h2>' +
+((__t = ( story.get('title') )) == null ? '' : __t) +
+'</h2>\n      <p class="preview">\n        ' +
+((__t = ( story.get('preview') )) == null ? '' : __t) +
+'\n      </p>\n    </article>\n    <a href="#" class="read-more">Read more &#65515;</a>\n  </div>\n</a>\n';
  } ;
 __p += '\n';
 
