@@ -21,7 +21,7 @@ define([
 
         events: {
           'focus #editor': 'onEditorFocus',
-          'blur #editor': 'onEditorBlur',
+          'blur #editor, .btn-publish': 'onEditorBlur',
           'click .btn-publish': 'onPublish'
         },
 
@@ -48,6 +48,19 @@ define([
         },
 
         onEditorBlur: function() {
+          var self = this;
+
+          setTimeout(function () {
+            var $focus = $(':focus');
+
+            if (
+              (!$focus.length ||
+                $.inArray(self.el, $focus.parents()) === -1) &&
+              $focus[0] !== self.el
+            ) {
+              self.placeholderOn();
+            }
+          }, 0);
         },
 
         placeholderOn: function() {
