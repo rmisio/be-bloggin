@@ -8,6 +8,13 @@ define([
     constructor: function (options) {
       Backbone.View.prototype.constructor.apply(this, arguments);
       this._childViews = [];
+      this._unregisterFromParent = true;
+
+      this.on('attach', function() {
+        for (var i=0; i < this._childViews.length; i++) {
+          this._childViews[i].trigger('attach');
+        }
+      }, this);
     },
 
     registerChild: function (childView) {
@@ -18,6 +25,11 @@ define([
     },
 
     unregisterChild: function (childView) {
+      var name = '';
+      if (childView.options && childView.options.name) {
+        name = childView.options.name;
+      }
+
       var index;
 
       if ((index = this._childViews.indexOf(childView)) !== -1) {
@@ -28,10 +40,15 @@ define([
 
     remove: function () {
       for (var i=0; i < this._childViews.length; i++) {
+        // no need to unregister child from parent,
+        // since the parent is also being removed
+        this._childViews[i]._unregisterFromParent = false;
         this._childViews[i].remove();
       }
 
-      this._parentView.unregisterChild(this);
+      if (this._parentView && this._unregisterFromParent) {
+        this._parentView.unregisterChild(this);
+      }
 
       Backbone.View.prototype.remove.apply(this, arguments);
     },
@@ -51,9 +68,7 @@ define([
         $container.empty().append(this.$el);
       }
 
-      for (var i=0; i < this._childViews.length; i++) {
-        this._childViews[i].trigger('attach');
-      }
+      this.trigger('attach');
     }
   });
 
