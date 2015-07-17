@@ -50,17 +50,19 @@ define([
         onEditorBlur: function() {
           var self = this;
 
-          setTimeout(function () {
-            var $focus = $(':focus');
+          if (this.isEditorEmpty()) {
+            setTimeout(function () {
+              var $focus = $(':focus');
 
-            if (
-              (!$focus.length ||
-                $.inArray(self.el, $focus.parents()) === -1) &&
-              $focus[0] !== self.el
-            ) {
-              self.placeholderOn();
-            }
-          }, 0);
+              if (
+                (!$focus.length ||
+                  $.inArray(self.el, $focus.parents()) === -1) &&
+                $focus[0] !== self.el
+              ) {
+                self.placeholderOn();
+              }
+            }, 0);
+          }
         },
 
         placeholderOn: function() {
