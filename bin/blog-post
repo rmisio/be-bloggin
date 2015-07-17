@@ -1,0 +1,121 @@
+#A Medium-esque Blog Feed Using Firebase
+
+I've had a little fun putting together a Medium.com style blog feed using Firebase, Backbonefire & MediumEditor. This is my first
+time working with these technologies and this little app gave me a good arena to check them out. Below are some thoughts.
+
+##Firebase
+Firebase is an interesting option to serve as the back-end of your app. It includes a realtime NoSQL database, providing you with a client-side
+script to interface with it. It also offers user authentication, notably social media authentication, including all the big boys
+like Facebook, Google, Twitter and Github. What drew me to it was the potential to eliminate the need to have to write server code. I'm not
+sure that's appropriate or feasible for all use-cases, but if I'm writing a single page app, where the front-end end is doing the heavy
+lifting and I just need to store a bit of data in a database, the Firebase model (BaaS - Backend-as-a-Service) offers a compelling
+alternative to developing, deploying and managing your server.
+
+###Realtime is a different animal
+While realtime updates can be really cool, it definitly takes a bit of discretion to know how to go about it. For example, consider you were
+displaying a basketball game scoreboard. The moment the score changes, you would want to update the UI. Seeeing the score change, potentially
+rapidly, is the expected experience for the user. A listing of blog posts might be a bit different. As new entries come in, even though
+you have the capability, you probably don't want to immediatally add them to the top of the list. The reason is that the user will be reading
+through the list and adding new items to the top would make the blog list a moving target. For a scenario like this, Twitter pops in a
+'X new tweets' button. For the prototype, I have an indicator in the header that pops in when a blog posting occurs from a seperate
+session. This way, you take advantage of realtime (websockets, not incessant HTTP requests on a interval) updates, without introducing
+detrimental chaos to the user experience.
+
+###Certain things still need a server, right?
+A scenario I ran into where I would have made use of some custom server logic is for derived fields. An example, is the creation of a blog
+preview which is a small subset of the full blog posting that the user provides. Using a traditional server approach, I simply would have some
+logic on the server that would create the preview before saving the post to the database.
+
+Without being able to write full blown code on the server, It looks like Firebase offers three options (http://stackoverflow.com/a/26287048/632806)
+to handle this scenario:
+
+####Create the derived field on the client
+This is the option I ending up taking, simply because it was the most expedient. The main down-side to this approach is that my data layer
+is not self contained. Consider if I wanted to consume the data not only from a web-site, but from native mobile apps. Using this approach,
+each client would have to implement (and maintain) the logic.
+
+####Have a seperate worker process make the update
+For this option, we would create a seperate worker client, deploy it in the cloud and upon a post being published to the database, have the worker create the derived field. You
+would want to be mindful of having some type of flag that indicates the data is not ready until the worker process has done it's thing. The benefit
+of this approach is that you are centralizing this peice so each seperate client would not have to worry about it. The downside is, there will
+likely be some expense for you to host this on the cloud somewhere. Also, it would introduce some extra latency into the process, since now
+the data has to make an extra round trip to the worker process before it's ready.
+
+####Use an audit path and security rules
+I can't elaborate on this one too much, since it seemed a bit complex and wasn't something I wanted to get into at the time. This approach
+seems to not have the downside's of the other two options, in that it can be completely done on the Firebase layer. Perhaps, this is a good
+one to further explore down the line.
+
+Backbonefire
+Since Backbone is the MVC that I'm most comfortable with, I thought I'd take this opportunity to play around with Backbonefire, the
+official Firebase bindings for Backbone.
+
+## The good
+It's an incredibly quick way to plug your Models and Collections into Firebase and make them persistent. You have the option of setting
+them up to autoSync (true by default), which controls whether your Model or Collection is synced in realtime or if you have to initiate
+the sync (a la the more traditional way of using a REST api).
+
+## The bad
+Backbonefire does not maintain Backbone's inheritance structure. For example, if you want to do the very common task of implementing a
+Validate method on your model, don't bother, as it won't be called. I also wanted to overwrite the Sync or Save method in order to
+create some derived fields (e.g. creating the aforementioned blog preview field from the full body provided by the user).
+This is something that should be done on the Model, but I was out of luck. I ended up overriding the Constructor of the Collection and
+monkey patching in an overridden Create method (https://github.com/rmisio/be-bloggin/blob/master/app/scripts/collections/Stories.js#L28)
+-- a *much* less than ideal way to go about it.
+
+When you declare your Collection (Backbone.Firebase.Collection), which is an extension of the standard Backbone Collection, you do
+specify a model. The problem is that the Firebase Collection just ignores most of the methods used to interface with that model. For me,
+this is a deal breaker. How useful can the bindings be if they add some useful functionlity, but do it in a manner that blocks you off
+from core (and also very useful) functionality? Furthermore, this approach would not play nice with other Backbone plugins that are expecting
+the Model integrity to remain in tact.
+
+FWIW, this is a known issue (https://github.com/firebase/backbonefire/issues/133) and hopefully something
+that can be rectified sometime soon. Until then, I'd have a hard time using the bindings for any serious type of project.
+
+#MediumEditor
+I've frustratingly and fruitlessly been on the look-out for a suitable WYSIWYG editor for years. The main problem for me with WYSIWYG's I've
+used in the past is that they produce enormously bloated, un-semantic markup (think 12 tags with 3-4 levels of nesting where a couple of
+simple p's would do), often times including inline-styles, the whole mess of which resulting in a metaphoric defecation all over your
+beautiful layout!
+
+Not too long ago I discovered Medium.com and had the good fortune to play around with their editor. From a usability perspective, it's a 10.
+More importantly, if you inspect the markup while creating a post, you'll find clean and semantic markup. You'll also find that
+the post you create seamlessly takes on the site's styles. You would really have to very intentionally go out of your way to make it look bad
+(e.g. write the headings as standard text and set all the standard text as H1's - you wouldn't do that, would you?).
+
+Anyhow, to make a long story short, MediumEditor (https://github.com/yabwe/medium-editor) is clone of the Medium.com editor. While it's not
+quite as elaborate, it does offer a good amount of functionlity and appears to have a robust API (https://github.com/yabwe/medium-editor/wiki) to be able to build in additional
+functionality. The built-in button options include bold, italic, underline, blockquote, justify text options (left, center...), headings
+(h1, h2...) and more (https://github.com/yabwe/medium-editor/wiki/Custom-Buttons-and-Extensions#all-of-the-built-in-mediumeditor-buttons-are-just-button-extensions-with-different-configuration).
+
+There is also an image option, but all it does is obtain a string of text from the user that it uses to populate the src attribute of an
+otherwise barren image tag. That's probably a bit too minimilistic for most, but given the ability to create extensions (https://github.com/yabwe/medium-editor/wiki/Custom-Buttons-and-Extensions#button-extension-api)
+to the toolbar, it shouldn't be too hard to beef up the functionality (e.g. have the user browse their device for a photo).
+
+Overall, I'm really impressed with this editor. Gone are the days where I cringe at the thought of having to use a WYSIWY while simultaneously
+squirming to find any work-around to avoid it.
+
+#Overall
+Overall, I give a thumbs up to Firebase. I still need more experience with it to really get to know all its capabilities and get a
+better sense what type of apps it's ideal for and what type of apps I should leave to a more traditional server. I also need more
+time to play around with realtime in general and work out how to correctly make use of it and not introduce confusing chaos to the interface.
+I definatly see Firebase as a great tool for quick experimental ptorotypes, but I do also see potential for more serious endevours as well.
+
+As for BackboneFire, I would be very hesitant to use it again until it plays nice with Backbone's core Model and Collection components. If I were to
+use Backbone and Firebase on another project, I would possibly look into more seriously patching the bindings, or more likely rolling with
+my own set-up. Alternatively, Firebase does offer a REST api and if realtime is not a necessity, I could just plug into that. Of course, there
+are bindings for other client MVC's (https://www.firebase.com/docs/web/libraries/). Perhaps, they are a little more mature. At least,
+judging by Github stars, the Angular bindings (https://github.com/firebase/angularfire) look to be further along. I must admit, I am very
+intrigued by the marriage of React and Firebase (https://www.firebase.com/docs/web/libraries/react/guide.html), since React just seems to be
+made for realtime. Don't forget that Firebase does have a fairly rich api (https://www.firebase.com/docs/web/api/) that is
+completely seperate from any of the bindings (in fact, the bindings are just using the API behind the scenes).
+
+Finally, a big thumbs up to MediumEditor. Out of the box, it will quickly get you up and running with a clean editor that produces semantic markup
+and it looks like it has a rich enough API to build upon it.
+
+
+
+
+
+
+
