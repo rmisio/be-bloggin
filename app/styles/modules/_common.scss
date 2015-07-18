@@ -75,6 +75,31 @@ blockquote {
   .main-content {
     max-width: 800px;
     margin: 0 auto;
+
+    .welcome-intro {
+      p {
+        margin-left: 6px;
+        padding: 5px 0;
+      }
+
+      margin-bottom: 15px;
+    }
+
+    .github-banner {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      border: 0;
+      width: 125px;
+      height: 125px;
+      background: url(../images/github-banner.png) top center / 125px 125px no-repeat;
+
+      @include mq($until: tablet) {
+        width: 100px;
+        height: 100px;
+        background-size: 100px 100px;
+      }
+    }
   }
 }
 
