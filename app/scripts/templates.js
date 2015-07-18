@@ -48,7 +48,7 @@ __p += '\n<div class="user-tag-line">\n  <img class="avatar" src="' +
 ((__t = ( user.profileImageURL )) == null ? '' : __t) +
 '" />\n  <span class="display-name">' +
 ((__t = ( user.displayName )) == null ? '' : __t) +
-'</span>\n</div>\n<div id="editor"></div>\n<div class="button-set">\n  <button class="btn-publish btn-highlight">Publish</button>\n</div>\n';
+'</span>\n  <span class="instructions">Make a text selection to see additional styling options.</span>\n</div>\n<div id="editor"></div>\n<div class="button-set">\n  <button class="btn-publish btn-highlight">Publish</button>\n</div>\n';
  } ;
 __p += '\n';
 

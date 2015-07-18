@@ -7,10 +7,18 @@
     span {
       opacity: 0;
     }
+
+    .instructions {
+      display: block;
+      font-size: 18px;
+      font-style: italic;
+      color: $gray-light;
+      margin-top: 10px;
+    }
   }
 
   #editor {
-    padding-top: 60px;
+    padding-top: 85px;
     min-height: 100px;
 
     &:focus {
@@ -32,7 +40,6 @@
   .placeholder-off {
     .user-tag-line span {
       opacity: 1;
-      max-height: 0;
     }
 
     #editor {
