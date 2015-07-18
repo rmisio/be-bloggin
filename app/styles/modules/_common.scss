@@ -45,6 +45,27 @@ button, .btn {
       border-color: $green-dark;
     }
   }
+
+  &.btn-facebook, &.btn-google {
+    color: white;
+    border: 0;
+  }
+
+  &.btn-facebook {
+    background-color: $color-fb;
+
+    &:hover {
+      background-color: darken($color-fb, 15%);
+    }
+  }
+
+  &.btn-google {
+    background-color: $color-google;
+
+    &:hover {
+      background-color: darken($color-google, 15%);
+    }
+  }
 }
 
 blockquote {
@@ -77,12 +98,24 @@ blockquote {
     margin: 0 auto;
 
     .welcome-intro {
+      margin-bottom: 15px;
+
       p {
         margin-left: 6px;
         padding: 5px 0;
       }
 
-      margin-bottom: 15px;
+      .button-set {
+        button {
+          margin-right: 5px;
+
+          @include mq($until: mobileLandscape) {
+            display: block;
+            margin-top: 15px;
+            width: 200px;
+          }
+        }
+      }
     }
 
     .github-banner {
