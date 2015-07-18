@@ -18,6 +18,7 @@ define([
       className: '',
 
       events: {
+        'click .read-more': 'onReadMore'
       },
 
       initialize: function (options) {
@@ -39,6 +40,12 @@ define([
 
       getNewStoryCount: function() {
         return this.collection.length - this.storiesAtRender;
+      },
+
+      onReadMore: function() {
+        alert('coming soon... (maybe)');
+
+        return false;
       },
 
       render: function() {
