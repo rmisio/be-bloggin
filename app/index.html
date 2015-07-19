@@ -15,13 +15,20 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
+
+        <!-- process:include:server scripts/settings/dev.js -->
+        <!-- /process -->
+
+        <!-- process:include:dist scripts/settings/prod.js -->
+        <!-- /process -->
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        include "images/sprite.svg"
+        <!-- process:include images/sprite.svg -->
+        <!-- /process -->
 
         <div id="main"></div>
 

@@ -67,13 +67,13 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
         tasks: ['test:true']
       },
-      includes: {
+      processhtml: {
         files: ['<%= yeoman.app %>/*.html'],
-        tasks: ['includes']
+        tasks: ['processhtml:server']
       },
       svg: {
         files: ['<%= yeoman.app %>/images/svg-sprite/{,*/}*.svg'],
-        tasks: ['svgstore', 'includes']
+        tasks: ['svgstore', 'processhtml:server']
       }
     },
     connect: {
@@ -199,12 +199,21 @@ module.exports = function (grunt) {
         }
       }
     },
-    includes: {
-      files: {
-        src: ['<%= yeoman.app %>/*.html'],
-        dest: '.tmp',
-        flatten: true,
-        cwd: '.'
+    processhtml: {
+      options: {
+        commentMarker: 'process',
+        process: true
+      },
+      server: {
+        files: [{
+          expand: true,
+          src: ['<%= yeoman.app %>/*.html'],
+          dest: '.tmp',
+          flatten: true
+        }]
+      },
+      dist: {
+        files: "<%= processhtml.server.files %>"
       }
     },
     requirejs: {
@@ -372,7 +381,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'svgstore',
-        'includes',
+        'processhtml:server',
         'createDefaultTemplate',
         'jst',
         'css_sprite',
@@ -386,7 +395,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'svgstore',
-      'includes',
+      'processhtml:server',
       'createDefaultTemplate',
       'jst',
       'css_sprite',
@@ -402,7 +411,7 @@ module.exports = function (grunt) {
     var testTasks = [
         'clean:server',
         'svgstore',
-        'includes',
+        'processhtml:server',
         'createDefaultTemplate',
         'jst',
         'sass',
@@ -424,7 +433,7 @@ module.exports = function (grunt) {
     'createDefaultTemplate',
     'jst',
     'svgstore',
-    'includes',
+    'processhtml:dist',
     'css_sprite',
     'sass:dist',
     'useminPrepare',

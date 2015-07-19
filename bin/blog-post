@@ -85,7 +85,7 @@ the post you create seamlessly takes on the site's styles. You would really have
 
 Anyhow, to make a long story short, MediumEditor (https://github.com/yabwe/medium-editor) is clone of the Medium.com editor. While it's not
 quite as elaborate, it does offer a good amount of functionlity and appears to have a robust API (https://github.com/yabwe/medium-editor/wiki) to be able to build in additional
-functionality. The built-in button options include bold, italic, underline, blockquote, justify text options (left, center...), headings
+features. The built-in button options include bold, italic, underline, blockquote, justify text options (left, center...), headings
 (h1, h2...) and more (https://github.com/yabwe/medium-editor/wiki/Custom-Buttons-and-Extensions#all-of-the-built-in-mediumeditor-buttons-are-just-button-extensions-with-different-configuration).
 
 There is also an image option, but all it does is obtain a string of text from the user that it uses to populate the src attribute of an
