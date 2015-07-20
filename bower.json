@@ -11,7 +11,6 @@
     "backbonefire": "~0.5.1",
     "medium-editor": "~5.3.0",
     "css-spinners": "~2.1.0",
-    "velocity": "~1.2.2",
     "animatewithsass": "*",
     "moment": "2.9.0"
   },

@@ -35,7 +35,6 @@ require.config({
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor',
-    'velocity': '../bower_components/velocity/velocity',
     'moment': '../bower_components/moment/moment'
   }
 });
@@ -46,12 +45,11 @@ require([
   'firebase',
   'backbonefire',
   'bootstrap',
-  'velocity',
   'app',
   'auth',
   'routes/app',
   'views/AppView'
-], function ($, Backbone, Firebase, backbonefire, bootstrap, velocity, app, auth, AppRouter, AppView) {
+], function ($, Backbone, Firebase, backbonefire, bootstrap, app, auth, AppRouter, AppView) {
   if (!window.config || !window.config.fbBaseUrl) {
     throw new Error('Please provide a fbBaseUrl attribute on window.config.');
   } else {

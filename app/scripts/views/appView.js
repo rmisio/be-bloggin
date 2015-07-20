@@ -26,8 +26,10 @@ define([
         },
 
         initialize: function () {
-          var $html = $('html')
-            , self = this;
+          var self = this;
+
+          this.$html = $('html');
+          this.$body = $('body');
 
           // prevent relative link clicks from requesting a new page
           // i.e. let our router handle them
@@ -56,15 +58,15 @@ define([
             }
 
             if (authData) {
-              $html.removeClass('user-logged-out')
+              self.$html.removeClass('user-logged-out')
                 .addClass('user-logged-in');
             } else {
-              $html.removeClass('user-logged-in')
+              self.$html.removeClass('user-logged-in')
                 .addClass('user-logged-out');
             }
           });
 
-          $html.on('click', '[href="/logout"]', this.onLogout);
+          this.$html.on('click', '[href="/logout"]', this.onLogout);
 
           this.listenTo(app.eventEmitter, 'header-btn-new-stories-click', function() {
             if (self.storyFeedView) {
@@ -107,6 +109,7 @@ define([
               success: function() {
                 self.storyEditorView.placeholderOn();
                 self.storyFeedView.render();
+                self.$html.add(self.$body).animate({ scrollTop: 0}, 300);
               },
               error: function() {
                 alert('So sorry. There was an error. Please try again.');
