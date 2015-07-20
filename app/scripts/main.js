@@ -31,7 +31,7 @@ require.config({
     jquery: '../bower_components/jquery/dist/jquery',
     backbone: '../bower_components/backbone/backbone',
     underscore: '../bower_components/underscore/underscore',
-    bootstrap: '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap',
+    bootstrap: '../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.min',
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor',
