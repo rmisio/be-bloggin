@@ -320,6 +320,11 @@ module.exports = function (grunt) {
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
           dest: '<%= yeoman.dist %>/.htaccess'
+        }, {
+          expand: true,
+          cwd: '.tmp',
+          src: '{,*/}*.html',
+          dest: '<%= yeoman.dist %>'
         }]
       }
     },
