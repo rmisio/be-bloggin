@@ -52,23 +52,11 @@ require([
   'routes/app',
   'views/AppView'
 ], function ($, Backbone, Firebase, backbonefire, bootstrap, velocity, app, auth, AppRouter, AppView) {
-  // TODO: move into appView
-  // prevent relative link clicks from requesting a new page
-  // i.e. let our router handle them
-  $(document).on('click', 'a:not([data-bypass])', function (evt) {
-      var href = $(this).attr('href'),
-          protocol = this.protocol + '//';
-
-      // ignore absolute links
-      if (href.slice(0, 4) === 'http') {
-          return;
-      }
-
-      if (href.slice(protocol.length) !== protocol) {
-        evt.preventDefault();
-        app.router.navigate(href, true);
-      }
-  });
+  if (!window.config || !window.config.fbBaseUrl) {
+    throw new Error('Please provide a fbBaseUrl attribute on window.config.');
+  } else {
+    app.config = window.config;
+  }
 
   app.router = new AppRouter();
   app.eventEmitter = _.extend({}, Backbone.Events);

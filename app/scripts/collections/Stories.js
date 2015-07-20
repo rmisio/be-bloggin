@@ -22,7 +22,7 @@ define([
       var origCreate = this.create
         , newCreate;
 
-      this.url = new Firebase(app.fbBaseUrl + '/stories').limitToLast(250);
+      this.url = new Firebase(app.config.fbBaseUrl + '/stories').limitToLast(250);
       Backbone.Firebase.Collection.prototype.constructor.apply(this, arguments);
 
       // monkey patch to account for broken inheritance, ugh!

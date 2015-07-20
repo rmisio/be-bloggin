@@ -13,8 +13,7 @@ define([
       , getUser;
 
     init = function() {
-      app.fbBaseUrl = 'https://bebloggin.firebaseio.com';
-      app.ref = new Firebase(app.fbBaseUrl);
+      app.ref = new Firebase(app.config.fbBaseUrl);
 
       app.ref.onAuth(function (data) {
         if (data) {

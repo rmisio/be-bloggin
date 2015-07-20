@@ -29,6 +29,23 @@ define([
           var $html = $('html')
             , self = this;
 
+          // prevent relative link clicks from requesting a new page
+          // i.e. let our router handle them
+          $(document).on('click', 'a:not([data-bypass])', function (evt) {
+              var href = $(this).attr('href'),
+                  protocol = this.protocol + '//';
+
+              // ignore absolute links
+              if (href.slice(0, 4) === 'http') {
+                  return;
+              }
+
+              if (href.slice(protocol.length) !== protocol) {
+                evt.preventDefault();
+                app.router.navigate(href, true);
+              }
+          });
+
           app.ref.onAuth(function (authData) {
             if (self.headerView) {
               self.headerView.render();
