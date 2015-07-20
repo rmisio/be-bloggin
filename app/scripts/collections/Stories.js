@@ -22,7 +22,7 @@ define([
       var origCreate = this.create
         , newCreate;
 
-      this.url = new Firebase(app.config.fbBaseUrl + '/stories').limitToLast(250);
+      this.url = new Firebase(app.config.fbBaseUrl + '/stories');
       Backbone.Firebase.Collection.prototype.constructor.apply(this, arguments);
 
       // monkey patch to account for broken inheritance, ugh!
@@ -39,11 +39,9 @@ define([
     create: function (model, options) {
       var title = ''
         , preview = ''
-        , fields
         , $body
         , $wrappedBody
-        , $title
-        , $preview;
+        , $title;
 
       options = options || {};
       options.invalid = typeof options.invalid === 'function' ?
@@ -78,15 +76,17 @@ define([
             }
         });
 
-        // to create the preview, find the first p element
-        $preview = $wrappedBody.find('p:first-of-type');
-        if ($preview.length && $title[0] !== $preview[0] && (preview = $preview.text()).length) {
-          model.preview = preview.length > 150 ?
-            preview.substring(0, 150) + '...' :
-              preview;
-        } else {
-          model.preview = '';
-        }
+        // to create the preview, find the first element with text that isn't the title element
+        model.preview = '';
+        $wrappedBody.find('*').each(function() {
+          if (this !== $title[0] && (preview = $(this).text()).length) {
+            model.preview = preview.length > 150 ?
+              preview.substring(0, 150) + '...' :
+                preview;
+
+            return false;
+          }
+        });
       }
 
       return arguments;
