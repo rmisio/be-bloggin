@@ -109,7 +109,7 @@ define([
               success: function() {
                 self.storyEditorView.placeholderOn();
                 self.storyFeedView.render();
-                self.$html.add(self.$body).animate({ scrollTop: 0}, 300);
+                self.$html.add(self.$body).animate({ scrollTop: 0}, 600);
               },
               error: function() {
                 alert('So sorry. There was an error. Please try again.');

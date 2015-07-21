@@ -28,8 +28,27 @@ define([
           this.on('attach', function() {
             this._attached = true;
             this.initPopover();
+            this.$parent = this.$el.parent();
+
+            // TODO: unbind this on remove()
+            $(window).scroll(
+              _.throttle(function(e) {
+                var scrolledUnder = !!window.scrollY;
+
+                if (scrolledUnder !== self.scrolledUnder) {
+                  if (scrolledUnder) {
+                    self.$parent.addClass('scrolled-under')
+                  } else {
+                    self.$parent.removeClass('scrolled-under')
+                  }
+
+                  self.scrolledUnder = scrolledUnder;
+                }
+              }, 50)
+            );
           });
 
+          this.scrolledUnder = false;
           this.newStories = 0;
         },
 
