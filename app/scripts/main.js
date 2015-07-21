@@ -35,7 +35,7 @@ require.config({
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     'medium-editor': '../bower_components/medium-editor/dist/js/medium-editor',
-    'moment': '../bower_components/moment/moment'
+    moment: '../bower_components/moment/moment'
   }
 });
 

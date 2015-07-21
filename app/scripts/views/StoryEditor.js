@@ -65,7 +65,7 @@ define([
           }
         },
 
-        placeholderOn: function() {
+        placeholderOn: function(options) {
           this.$editor.empty();
           this.$editor.addClass('medium-editor-placeholder');
           this.$el.removeClass('placeholder-off');

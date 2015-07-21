@@ -12,7 +12,8 @@
     "medium-editor": "~5.3.0",
     "css-spinners": "~2.1.0",
     "animatewithsass": "*",
-    "moment": "2.9.0"
+    "moment": "2.9.0",
+    "velocity": "~1.2.2"
   },
   "devDependencies": {
     "chai": "~3.0.0",

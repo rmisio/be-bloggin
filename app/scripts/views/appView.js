@@ -70,7 +70,11 @@ define([
 
           this.listenTo(app.eventEmitter, 'header-btn-new-stories-click', function() {
             if (self.storyFeedView) {
-              self.storyFeedView.render();
+              self.$html.add(self.$body)
+                .animate({ scrollTop: 0}, 300, function() {
+                  self.storyEditorView.placeholderOn();
+                  self.storyFeedView.render();
+                });
             }
           });
         },
@@ -107,9 +111,11 @@ define([
                 alert(error);
               },
               success: function() {
-                self.storyEditorView.placeholderOn();
-                self.storyFeedView.render();
-                self.$html.add(self.$body).animate({ scrollTop: 0}, 600);
+                self.$html.add(self.$body)
+                  .animate({ scrollTop: 0}, 300, function() {
+                    self.storyEditorView.placeholderOn();
+                    self.storyFeedView.render();
+                  });
               },
               error: function() {
                 alert('So sorry. There was an error. Please try again.');
