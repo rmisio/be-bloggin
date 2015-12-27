@@ -43,7 +43,7 @@ define([
       },
 
       onReadMore: function() {
-        alert('under constructions');
+        alert('under construction');
 
         return false;
       },
