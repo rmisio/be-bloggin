@@ -67,7 +67,7 @@ with (obj) {
 ;
 __p += '\n  <div class="story-preview">\n    <article>\n      <div class="user-tag-line">\n        <img class="avatar" src="' +
 ((__t = ( stories.at(i).get('user').profileImageURL )) == null ? '' : __t) +
-'" />\n        <div>\n          <div class="display-name">' +
+'" onerror="this.src=\'/images/default-avatar.jpg\'" />\n        <div>\n          <div class="display-name">' +
 ((__t = ( story.get('user').displayName )) == null ? '' : __t) +
 '</div>\n          <div class="time-ago">' +
 ((__t = ( moment(story.get('createdAt')).fromNow() )) == null ? '' : __t) +

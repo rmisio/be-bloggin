@@ -4,7 +4,7 @@
   <div class="story-preview">
     <article>
       <div class="user-tag-line">
-        <img class="avatar" src="<%= stories.at(i).get('user').profileImageURL %>" />
+        <img class="avatar" src="<%= stories.at(i).get('user').profileImageURL %>" onerror="this.src='/images/default-avatar.jpg'" />
         <div>
           <div class="display-name"><%= story.get('user').displayName %></div>
           <div class="time-ago"><%= moment(story.get('createdAt')).fromNow() %></div>
