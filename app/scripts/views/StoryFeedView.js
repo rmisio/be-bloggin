@@ -43,7 +43,7 @@ define([
       },
 
       onReadMore: function() {
-        alert('show full blog post');
+        alert('under constructions');
 
         return false;
       },
