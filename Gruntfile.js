@@ -450,7 +450,7 @@ module.exports = function (grunt) {
     'copy',
     'requirejs',
     'uglify:dist',
-    'rev',
+    // 'rev',
     'usemin'
   ]);
 
