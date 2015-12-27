@@ -54,9 +54,6 @@ define([
           moment: moment
         }));
 
-        console.log('boom');
-        window.boom = this.collection;
-
         this.storiesAtRender = this.collection.length;
 
         return this;
