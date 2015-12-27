@@ -54,10 +54,11 @@ define([
           moment: moment
         }));
 
-        console.log('boom');
-        window.boom = this.collection;
-
         this.storiesAtRender = this.collection.length;
+
+        this.$('.user-tag-line .avatar').one('error', function() {
+          this.src = '/images/default-avatar.jpg';
+        });
 
         return this;
       }
